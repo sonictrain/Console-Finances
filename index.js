@@ -90,12 +90,34 @@ var finances = [
 var totalMonths = finances.length;
 var netPL = 0;
 var currency = "$";
+var change;
+var totalChange = 0;
+var averageChange;
+var greaterIncrease = ['', 0];
+var greaterDecrease = ['', 0];
+
+greaterIncrease = greaterDecrease = finances[0];
 
 // Calculating total months
 console.log(`Total Months: ${totalMonths}`);
 
 // Net Profit & Loss calculation
-for (var i=0; i < finances.length; i++) {
-    netPL += Number(finances[i][1]);
+for (var i = 0; i < finances.length; i++) {
+  netPL += Number(finances[i][1]);
+
+  if (i > 0) {
+    change = (finances[i][1] - finances[i - 1][1]);
+    totalChange += change;
+
+    if (change > greaterIncrease[1]) {
+      greaterIncrease = [finances[i][0], change];
+    }
+    if (change < greaterDecrease[1]) {
+      greaterDecrease = [finances[i][0], change];
+    }
+  }
 }
-console.log(`Total: ${currency}${netPL}`);
+
+console.log(`Average Change: ${totalChange/(totalMonths-1)}`);
+console.log(`Greatest Increase in Profits/Losses: ${greaterIncrease[0]} (${currency}${greaterIncrease[1]})`);
+console.log(`Greatest Increase in Profits/Losses: ${greaterDecrease[0]} (${currency}${greaterDecrease[1]})`);

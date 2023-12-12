@@ -1,3 +1,4 @@
+// finances records
 var finances = [
   ['Jan-2010', 867884],
   ['Feb-2010', 984655],
@@ -87,7 +88,7 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
-var totalMonths = finances.length;
+// variables declaration & initialisation
 var netPL = 0;
 var currency = "$";
 var change;
@@ -96,15 +97,12 @@ var averageChange;
 var greaterIncrease = ['', 0];
 var greaterDecrease = ['', 0];
 
-greaterIncrease = greaterDecrease = finances[0];
-
-// Calculating total months
-console.log(`Total Months: ${totalMonths}`);
-
-// Net Profit & Loss calculation
 for (var i = 0; i < finances.length; i++) {
+  // Net Profit & Loss calculation
   netPL += Number(finances[i][1]);
 
+  // Calculating change, total change, greater increase
+  // and decrease starting from the 2nd item of the array
   if (i > 0) {
     change = (finances[i][1] - finances[i - 1][1]);
     totalChange += change;
@@ -118,6 +116,11 @@ for (var i = 0; i < finances.length; i++) {
   }
 }
 
-console.log(`Average Change: ${totalChange/(totalMonths-1)}`);
-console.log(`Greatest Increase in Profits/Losses: ${greaterIncrease[0]} (${currency}${greaterIncrease[1]})`);
-console.log(`Greatest Increase in Profits/Losses: ${greaterDecrease[0]} (${currency}${greaterDecrease[1]})`);
+// Printing result to the console
+console.log(`Financial Analysis
+----------------
+Total Months: ${finances.length}
+Total: ${netPL}
+Average Change: ${totalChange/(finances.length-1)}
+Greatest Increase in Profits/Losses: ${greaterIncrease[0]} (${currency}${greaterIncrease[1]})
+Greatest Increase in Profits/Losses: ${greaterDecrease[0]} (${currency}${greaterDecrease[1]})`);

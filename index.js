@@ -89,24 +89,25 @@ var finances = [
 ];
 
 // variables declaration & initialisation
+var totalMonths = finances.length;
 var netPL = 0;
 var currency = "$";
 var change;
 var totalChange = 0;
-var averageChange;
 var greaterIncrease = ['', 0];
 var greaterDecrease = ['', 0];
 
 for (var i = 0; i < finances.length; i++) {
+
   // Net Profit & Loss calculation
   netPL += Number(finances[i][1]);
-
+  
   // Calculating change, total change, greater increase
   // and decrease starting from the 2nd item of the array
   if (i > 0) {
     change = (finances[i][1] - finances[i - 1][1]);
     totalChange += change;
-
+    
     if (change > greaterIncrease[1]) {
       greaterIncrease = [finances[i][0], change];
     }
@@ -116,11 +117,15 @@ for (var i = 0; i < finances.length; i++) {
   }
 }
 
+// averaChange declaration must be after the for loop so that
+// it can be initialised with the correct totalChange value
+var averageChange = Math.round(totalChange / (totalMonths - 1) * 100 ) / 100; 
+
 // Printing result to the console
 console.log(`Financial Analysis
 ----------------
-Total Months: ${finances.length}
-Total: ${netPL}
-Average Change: ${totalChange/(finances.length-1)}
+Total Months: ${totalMonths}
+Total: ${currency}${netPL}
+Average Change: ${averageChange}
 Greatest Increase in Profits/Losses: ${greaterIncrease[0]} (${currency}${greaterIncrease[1]})
 Greatest Increase in Profits/Losses: ${greaterDecrease[0]} (${currency}${greaterDecrease[1]})`);
